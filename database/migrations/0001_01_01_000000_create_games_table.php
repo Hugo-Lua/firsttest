@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('creator');
             $table->string('genre');
             $table->string('email');
-            $table->string('short-description');
+            $table->text('short_description');
             $table->longText('description');
             $table->timestamps();
         });

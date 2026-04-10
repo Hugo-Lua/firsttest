@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Games extends Model
 {
+    protected $fillable = [
+        'title',
+        'tags',
+        'creator',
+        'genre',
+        'email',
+        'short_description',
+        'description',
+    ];
     use HasFactory;
 }

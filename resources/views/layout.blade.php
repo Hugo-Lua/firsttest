@@ -12,7 +12,7 @@
 </head>
   <body style="background-color: #494949;">
 
-    <nav id="global-nav-desktop" class="pb-5">
+    <nav id="global-nav-desktop">
       <div class="container-fluid p-3 border-bottom border-secondary" style="background-color: #535353;">
         <div class="row">
           <div class="d-none d-md-flex">
@@ -22,49 +22,48 @@
               </a>
             </div>
             <div class="col">
-              <a href="?genre=Roguelike" class="text text-decoration-none" style="color: #acacac;">
-                <h6 class="my-3 mt-4">Roguelikes</h6>
+
+            </div>
+            <div class="col">
+              
+            </div>
+            <div class="col">
+              
+            </div>
+            <div class="col">
+              <a href="/publish" class="text text-decoration-none" style="color: #acacac;">
+                <h6 class="my-3 mt-4">Publish game</h6>
               </a>
             </div>
             <div class="col">
-              <a href="?genre=Puzzle" class="text text-decoration-none" style="color: #acacac;">
-                <h6 class="my-3 mt-4">Puzzle</h6>
-              </a>
-            </div>
-            <div class="col">
-              <a href="?genre=Platformer" class="text text-decoration-none" style="color: #acacac;">
-                <h6 class="my-3 mt-4">Platformer</h6>
-              </a>
-            </div>
-            <div class="col">
-              <a href="?genre=Story-rich" class="text text-decoration-none" style="color: #acacac;">
-                <h6 class="my-3 mt-4">Story-Rich</h6>
-              </a>
-            </div>
-            <div class="col">
-              <a href="?genre=Multiplayer" class="text text-decoration-none" style="color: #acacac;">
-                <h6 class="my-3 mt-4">Multiplayer</h6>
-              </a>
+              <form action="/search" method="GET" class="d-flex m-3">
+                <input class="form-control me-2" style="min-width: 200px" type="search" name="q" placeholder="Search games...">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+              </form>
+              @if(session('error'))
+                  <div class="alert alert-danger mx-4 mt-3">
+                      {{ session('error') }}
+                  </div>
+              @endif
             </div>
           </div>
 
 
           <div class="d-block d-md-none text-center">
-            <div class="col">
-              <a href="/">
-                <img src={{ asset('images/logo_black.png') }} style="width: 200px;" alt="Logo png" class="w-25">
-              </a>
+              <div class="col">
+                <a href="/">
+                  <img src={{ asset('images/logo_black.png') }} style="width: 200px;" alt="Logo png" class="w-25">
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </nav>
 
-    <div class="container-fluid">
-      <!-- Main website in here -->
-      @yield('content')
+    <!-- Main website in here -->
+    @yield('content')
 
-    </div>
 
     <section id="footer-wrapper" class="border-top border-secondary mt-5"  style="background-color: #535353;">
       <div class="container">

@@ -32,7 +32,10 @@
             </div>
             <div class="col">
               <a href="/publish" class="text text-decoration-none" style="color: #acacac;">
-                <h6 class="my-3 mt-4">Publish game</h6>
+                <h6 class="mt-3">Publish game</h6>
+              </a>
+              <a href="/manage" class="text text-decoration-none" style="color: #acacac;">
+                <h6 class="">Manage game</h6>
               </a>
             </div>
             <div class="col">

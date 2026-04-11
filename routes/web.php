@@ -43,6 +43,12 @@ Route::get('/games/{id}', function($id){
     ]);
 });
 
+Route::post('/games/{id}', function($id){
+    return view('buy', [
+        'game' => Games::find($id),
+    ]);
+});
+
 Route::get('/search', function(){
     $query = request('q');
     
@@ -62,40 +68,59 @@ Route::get('/publish', function(){
     return view('publish');
 });
 
-Route::post('/publish', function(){
-    
-    Games::create([
-        'title'             => request('title'),
-        'tags'              => request('tags'),
-        'creator'           => request('creator'),
-        'genre'             => request('genre'),
-        'email'             => request('email'),
-        'short_description' => request('short_description'),
-        'description'       => request('description'),
-    ]);
+Route::post('/publish', function(){    
 
-    $folderName = str_replace(' ', '_', request('title'));  
-    $path = public_path('images/' . $folderName);
+    if (request('preview') == 'true'){
+        return view('publish',[
+            'title'             => request('title'),
+            'tags'              => request('tags'),
+            'creator'           => request('creator'),
+            'genre'             => request('genre'),
+            'email'             => request('email'),
+            'short_description' => request('short_description'),
+            'description'       => request('description'),
 
-    mkdir($path,0755,true);
+            'cover' => request('cover'),
+            'pic1' => request('pic1'),
+            'pic2' => request('pic2'),
+            'pic3' => request('pic3'),
+            'pic4' => request('pic4')
+        ]);
+    }else{
 
-    $cover = request('cover');
-    $cover->move($path, 'cover.jpg');
+        Games::create([
+            'title'             => request('title'),
+            'tags'              => request('tags'),
+            'creator'           => request('creator'),
+            'genre'             => request('genre'),
+            'email'             => request('email'),
+            'short_description' => request('short_description'),
+            'description'       => request('description'),
+        ]);
 
-    $pic1 = request('pic1');
-    $pic1->move($path, 'pic1.jpg');
+        $folderName = str_replace(' ', '_', request('title'));  
+        $path = public_path('images/' . $folderName);
 
-    $pic2 = request('pic2');
-    $pic2->move($path, 'pic2.jpg');
+        mkdir($path,0755,true);
 
-    $pic3 = request('pic3');
-    $pic3->move($path, 'pic3.jpg');
+        $cover = request('cover');
+        $cover->move($path, 'cover.jpg');
 
-    $pic4 = request('pic4');
-    $pic4->move($path, 'pic4.jpg');
+        $pic1 = request('pic1');
+        $pic1->move($path, 'pic1.jpg');
+
+        $pic2 = request('pic2');
+        $pic2->move($path, 'pic2.jpg');
+
+        $pic3 = request('pic3');
+        $pic3->move($path, 'pic3.jpg');
+
+        $pic4 = request('pic4');
+        $pic4->move($path, 'pic4.jpg');
 
 
-    return redirect('/')->with('success', 'Game published!');
+        return redirect('/')->with('success', 'Game published!');
+    }
 });
 
 Route::get('/manage', function(){
@@ -136,4 +161,23 @@ Route::patch('/manage', function(){
     $game->save();
 
     return redirect('/games/' . $id)->with('success', 'Game updated!');
+});
+
+Route::get('/buy', function(){
+    $id = request('id');
+    $games = Games::all();
+    $boughtgame = null;
+    foreach($games as $game){
+        if ($game['id'] == $id){
+            $boughtgame = $game;
+        }
+    }
+
+    if ($boughtgame == null){
+        return 'error';
+    }else{
+        return view('buy',[
+            'game' => $boughtgame
+        ]);
+    }
 });
